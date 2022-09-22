@@ -1,0 +1,38 @@
+#!/bin/bash
+
+
+#SBATCH --export=ALL
+#SBATCH -N 1 # numero de nodos
+
+##SBATCH -n 16
+
+# tempo
+#SBATCH -t 60
+
+#SBATCH --exclusive #privativa a maquina para que outro colega nao use a mesma maquina
+#SBATCH --no-requeue
+
+#SBATCH -o %x.%j.out # define a estrutura do arquivo de output
+
+#SBATCH -D /home/pp03023/trabalho
+
+echo ################
+echo Running on host `hostname`
+echo
+echo Initial Time is `date`
+echo
+echo Directory is `pwd`
+echo
+echo This jobs runs on the following nodes:
+echo $SLURM_JOB_NODELIST
+echo
+echo JOB_ID:
+echo $SLURM_JOBID
+echo ################
+echo Executando bubble seq 10
+./bubble10 > sequencial_bubble10.tempo
+echo Executando bubble seq 100
+./bubble100 > sequencial_bubble100.tempo
+echo Executando bubble seq 1000
+./bubble1000 > sequencial_bubble1000.tempo
+echo Final Time is `date`
